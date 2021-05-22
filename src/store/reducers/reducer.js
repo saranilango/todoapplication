@@ -1,6 +1,6 @@
 import * as actionTypes from '../action';
 const initialState = {
-    data: {},
+    data: [],
     isSuccess: false
 }
 
@@ -9,7 +9,7 @@ const toDoAdd = (state = initialState, action) => {
     switch (type) {
         case actionTypes.TODO_ADD_SUCCESS:
             return {
-                ...state, data: payloads, isSuccess: true
+                ...state, data: [...state.data, payloads], isSuccess: true
             };
         case actionTypes.TODO_ADD_ERROR:
             return {

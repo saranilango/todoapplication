@@ -5,6 +5,7 @@ import { toDoAddAction } from '../store/actions/toDoAddAction';
 import "./todo.scss"
 const Todo = (props) => {
     const [todoList, setTodoList] = useState([]);
+    const [allTodoList, setAllTodoList] = useState([]);
     const [newTodo, setNewTodo] = useState("");
     const [searchTodoValue, setSearchTodoValue] = useState("");
     const [input, setInput] = useState(true);
@@ -12,17 +13,16 @@ const Todo = (props) => {
     const [isCompleted, setIsCompleted] = useState(false);
     const [checked, setChecked] = useState(false);
     const [isActive, setIsActive] = useState(false);
-    const [searchData, setSearchData] = useState([]);
     const [count, setCount] = useState(0);
     const [lineThrough, setLineThrough] = useState(false)
 
     useEffect(() => {
-        setSearchData(todoList);
-        setCount(todoList.length);
         if (props.toDoAddReducer.isSuccess) {
             console.log(props, 'propsprops');
-            setSearchData([...searchData, props.toDoAddReducer.data]);
-            setTodoList([...todoList, props.toDoAddReducer.data]);
+            setTodoList(props.toDoAddReducer.data);
+            setAllTodoList(props.toDoAddReducer.data);
+            setCount(props.toDoAddReducer.data.length);
+
         }
     }, [props.toDoAddReducer]);
 
@@ -34,39 +34,45 @@ const Todo = (props) => {
     }
     const searchTodo = () => {
         setInput(false);
-        setCount(todoList.length);
     }
     const handleSearch = (event) => {
-        if (event.target.value !== "") {
-            let newArray = todoList.filter(list => list.toLowerCase().includes(event.target.value))
-            setSearchData(newArray);
-            setSearchTodoValue(event.target.value);
-        } else {
-            setSearchData(todoList);
-            setSearchTodoValue(event.target.value)
-        }
+        let newArray = allTodoList.filter(list => {
+            let getText = list.inputValues ? list.inputValues.toLowerCase() : "";
+            let searchtext = event.target.value;
+            return getText.indexOf(searchtext) !== -1;
+
+        });
+        setTodoList(newArray);
+        setSearchTodoValue(event.target.value);
+
     }
 
     const checkValue = (e, index) => {
-        if (e.currentTarget.checked === true) {
+        if (e.currentTarget.checked) {
+            let data = todoList;
+            data[index].isChecked = true;
+            setTodoList(data);
+            setAllTodoList(data);
             setLineThrough(true);
-            setCount(count);
+
         } else {
-            setCount(count + 1);
+            let data = todoList;
+            data[index].isChecked = false;
+            setTodoList(data);
+            setAllTodoList(data);
+            setLineThrough(false);
         }
+
+        let totalCompleted = todoList.filter((data) => !data.isChecked);
+        setCount(totalCompleted.length);
     }
 
     const handleKeyDown = (event) => {
-        
         if (event.key === 'Enter') {
-            console.log('do validate', newTodo);
-            setCount(count + 1)
             if (newTodo != "") {
                 let newTodos = {
                     inputValues: newTodo,
-                    isAll: true,
-                    isActive: false,
-                    isCompleted: false
+                    isChecked: false
                 }
                 props.toDoAddAction(newTodos);
                 setNewTodo("");
@@ -77,25 +83,28 @@ const Todo = (props) => {
     }
 
     const filterAll = () => {
-        console.log('props', props.toDoAddReducer)
+        setTodoList(allTodoList);
         setIsAll(true)
         setIsActive(false)
         setIsCompleted(false)
     }
     const filterActive = () => {
-        console.log('props', props.toDoAddReducer)
+        let active = allTodoList.filter((data) => data.isChecked === false);
+        setTodoList(active);
         setIsAll(false)
         setIsActive(true)
-        setIsCompleted(false)
+        setIsCompleted(false);
     }
     const filterCompleated = () => {
-        console.log('props', props.toDoAddReducer)
+        let active = allTodoList.filter((data) => data.isChecked);
+        setTodoList(active);
         setIsAll(false)
         setIsActive(false)
         setIsCompleted(true)
     }
     return (
         <div className="wrapper">
+
             <div className="header"><h2>Todo Application</h2></div>
             <div className="content">
                 <div className="content-blk card">
@@ -103,9 +112,18 @@ const Todo = (props) => {
                         <input type="text" placeholder="Search" value={searchTodoValue} onChange={handleSearch} />
                     }
                     <div className="ht560 srl_auto" >
-                        {searchData.length > 0 ? searchData.map((option, index) => {
-                            return <div className="list_stl" key={index} style={{textDecoration: lineThrough ? "line-through" : ""}}><input type="checkbox" onChange={(e) => checkValue(e, index)} id={index} /> {option.inputValues}</div>
-                        }) : ""}
+                        {todoList.length > 0 ? todoList.map((option, index) =>
+                            <div className={`list_stl checkbox_stl`} key={index} >
+                                <span>
+                                    <input type="checkbox" onChange={(e) => checkValue(e, index)} value={option.isChecked} checked={option.isChecked} />
+                                </span>
+
+                                <div className={`ml-1  ${option.isChecked == true ? 'is_checked' : null}`}>
+                                    {option.inputValues}
+                                </div>
+
+                            </div>
+                        ) : ""}
                     </div>
                     <div className="foot_container">
                         <div className="div_padding">

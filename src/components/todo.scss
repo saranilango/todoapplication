@@ -8,17 +8,29 @@ input[type=text] {
 	box-sizing: border-box !important;
 }
 input[type="checkbox"] {
-    height: 15px !important;
-    width: 15px !important;
-	cursor: pointer !important;
-    vertical-align: middle !important;
-    background: linear-gradient(#FCFCFC, #DADADA) !important;
-    appearance: auto !important;
-	&:not(:disabled):hover {
-		border-color:rgba(42, 4, 209, 0.959) !important;
-		box-shadow: 1px 1px 0 rgba(3, 32, 160, 0.836), 0 0 4px rgba(7, 19, 190, 0.856);
-	}
+    background-color: initial;
+    cursor: default;
+    -webkit-appearance: auto;
+    appearance: auto;
+    box-sizing: border-box;
+    margin-left: 3px;
+    padding: initial;
+    border: initial;
+    width: 20px;
+    height: 18px;
+}
 
+.checkbox_stl:hover span{
+	background-color: #b2d7f1;
+    border-radius: 30px !important;
+    /* width: 20px; */
+    /* height: 20px; */
+    border: 1px solid #82c1f7 !important;
+    padding: 4px;
+	
+}
+.is_checked{
+	text-decoration: line-through !important;
 }
 
 html {
@@ -75,8 +87,14 @@ body {
 	height: 50px !important;
 }
 .list_stl {
-	height: 30px !important;
-	border-bottom: 1px double !important;
+	display: flex;
+	align-items: center ;
+	// height: 30px !important;
+    border-bottom: 1px solid #cfcfcf !important;
+    padding:14px;
+}
+.ml-1{
+	margin-left: 1rem;
 }
 .padding {
 	padding-right: 20px !important;
