@@ -1,0 +1,100 @@
+input[type=text] {
+	width: 100% !important;
+	padding: 12px 20px !important;
+	margin: 8px 0 !important;
+	display: inline-block !important;
+	border: 1px double #ccc !important;
+	border-radius: 4px !important;
+	box-sizing: border-box !important;
+}
+input[type="checkbox"] {
+    height: 15px !important;
+    width: 15px !important;
+	cursor: pointer !important;
+    vertical-align: middle !important;
+    background: linear-gradient(#FCFCFC, #DADADA) !important;
+    appearance: auto !important;
+	&:not(:disabled):hover {
+		border-color:rgba(42, 4, 209, 0.959) !important;
+		box-shadow: 1px 1px 0 rgba(3, 32, 160, 0.836), 0 0 4px rgba(7, 19, 190, 0.856);
+	}
+
+}
+
+html {
+	height: 100% !important;
+	margin: 0 !important;
+}
+body {
+	height: 100% !important;
+	margin: 0 !important;
+}
+.wrapper {
+	display: flex !important;
+	flex-direction: column !important;
+}
+.header {
+	background: #ccc !important;
+	height: 60px !important;
+}
+.footer {
+	background: #ccc !important;
+	height: 60px !important;
+}
+.content {
+	flex: 1 !important;
+	overflow: auto !important;
+	background: white !important;
+	padding-left: 50px !important;
+	padding-right: 50px !important;
+}
+.content-blk {
+	height: 669px !important;
+}
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+	transition: 0.3s !important;
+	&:hover {
+		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
+	}
+}
+.div_padding {
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+}
+.span_padding {
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+.foot_container {
+	display: flex !important;
+	flex-direction: row !important;
+	justify-content: space-between !important;
+	height: 50px !important;
+}
+.list_stl {
+	height: 30px !important;
+	border-bottom: 1px double !important;
+}
+.padding {
+	padding-right: 20px !important;
+	padding-left: 20px !important;
+	padding-top: 7px !important;
+}
+.div_mrging {
+	margin-right: 10px !important;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+.cursor {
+	cursor: pointer;
+}
+.ht560 {
+	height: 560px !important;
+}
+.srl_auto {
+	overflow: auto !important;
+}
