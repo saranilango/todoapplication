@@ -11,14 +11,11 @@ const Todo = (props) => {
     const [input, setInput] = useState(true);
     const [isAll, setIsAll] = useState(true);
     const [isCompleted, setIsCompleted] = useState(false);
-    const [checked, setChecked] = useState(false);
     const [isActive, setIsActive] = useState(false);
     const [count, setCount] = useState(0);
-    const [lineThrough, setLineThrough] = useState(false)
 
     useEffect(() => {
         if (props.toDoAddReducer.isSuccess) {
-            console.log(props, 'propsprops');
             setTodoList(props.toDoAddReducer.data);
             setAllTodoList(props.toDoAddReducer.data);
             setCount(props.toDoAddReducer.data.length);
@@ -53,14 +50,12 @@ const Todo = (props) => {
             data[index].isChecked = true;
             setTodoList(data);
             setAllTodoList(data);
-            setLineThrough(true);
 
         } else {
             let data = todoList;
             data[index].isChecked = false;
             setTodoList(data);
             setAllTodoList(data);
-            setLineThrough(false);
         }
 
         let totalCompleted = todoList.filter((data) => !data.isChecked);
@@ -69,7 +64,7 @@ const Todo = (props) => {
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-            if (newTodo != "") {
+            if (newTodo !== "") {
                 let newTodos = {
                     inputValues: newTodo,
                     isChecked: false
@@ -118,7 +113,7 @@ const Todo = (props) => {
                                     <input type="checkbox" onChange={(e) => checkValue(e, index)} value={option.isChecked} checked={option.isChecked} />
                                 </span>
 
-                                <div className={`ml-1  ${option.isChecked == true ? 'is_checked' : null}`}>
+                                <div className={`ml-1  ${option.isChecked === true ? 'is_checked' : null}`}>
                                     {option.inputValues}
                                 </div>
 
